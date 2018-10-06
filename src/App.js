@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import ProductList from './ProductList';
+
 
 /*
 const ACCESS_KEY = 'MDo0NTllYzdlYy1jNzc0LTExZTgtYTc1YS1jN2NjNTYwZWNhOTA6WGEzSDdhS2xqbW1wc05ERjE1MFBZMUg2Ykw5SUpnMEpDMEFl';
@@ -17,7 +19,7 @@ const myInit = {
 };
 */
 
-// this is the data returned from http://lcboapi.com/products/?q=beau%27s+all+natural+brewing
+// this const is the data returned from http://lcboapi.com/products/?q=beau%27s+all+natural+brewing
 // CORS error
 const dataset = {
     "status": 200,
@@ -1120,30 +1122,51 @@ class App extends Component {
         console.log(error)
       });
       */
+/*
+      dataset.result.map((product) => {
+        if(product.is_seasonal){
+          this.setState({
+            products: [
+              {
+                id: product.id,
+                name: product.name,
+              },
+              ...this.state.products
+            ]
+          })
+        }
+      })
+*/
 
-      let products = dataset.result.map((product) => {
-        return(
-          <div key={product.id}>
-            {product.name}
-          </div>
-        )
+
+      // TO DO - this is not correct
+
+      let filteredProducts = dataset.result.map((product) => {
+        if(product.is_seasonal) {
+          return(
+            <li key={product.id}>
+              {product.name}
+            </li>
+          )
+        }
       })
 
-      this.setState({ products: products})
+//let filteredProducts = dataset.filter( product => product.is_seasonal);
 
-      console.log(products)
+      this.setState({ products: filteredProducts})
+
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Beau's</h1>
+          <h1>Beau's Seasonal Beer</h1>
           <p>
             Since 2006 Beau’s All Natural has been brewing interesting, tasty beers like our Lug Tread Lagered Ale using the best ingredients & local spring water. Our family takes pride in creating unique, wonderful and certified organic craft beer, conceived with honest consideration for the environment and our local communities, and delivered with a sense of friendly relationship. We are an award-winning, local, family-run, organic, and independent brewery.
           </p>
           <div>
-            {this.state.products}
+            <ProductList products={this.state.products} />
           </div>
         </header>
       </div>

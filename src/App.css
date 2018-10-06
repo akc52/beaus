@@ -11,6 +11,7 @@
 
 body {
   font-family: var(--bodyFont);
+  background-color: var(--color3);
 }
 
 h1, h2, h3 {
