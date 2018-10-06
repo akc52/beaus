@@ -19,6 +19,7 @@ const myInit = {
 
 // this is the data returned from http://lcboapi.com/products/?q=beau%27s+all+natural+brewing
 // CORS error
+
 const dataset = {
     "status": 200,
     "message": null,
@@ -1122,11 +1123,13 @@ class App extends Component {
       */
 
       let products = dataset.result.map((product) => {
-        return(
-          <div key={product.id}>
-            {product.name}
-          </div>
-        )
+        if(product.is_seasonal){
+          return(
+            <div key={product.id}>
+              {product.name}
+            </div>
+          )
+        }
       })
 
       this.setState({ products: products})
@@ -1138,7 +1141,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Beau's</h1>
+          <h1>Beau's Seasonal Beers</h1>
           <p>
             Since 2006 Beau’s All Natural has been brewing interesting, tasty beers like our Lug Tread Lagered Ale using the best ingredients & local spring water. Our family takes pride in creating unique, wonderful and certified organic craft beer, conceived with honest consideration for the environment and our local communities, and delivered with a sense of friendly relationship. We are an award-winning, local, family-run, organic, and independent brewery.
           </p>
