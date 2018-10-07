@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProductList = props => (
-  <ul>
+  <ul className="productList">
     {props.products}
   </ul>
 );

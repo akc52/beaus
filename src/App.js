@@ -1144,7 +1144,7 @@ class App extends Component {
       let filteredProducts = dataset.result.map((product) => {
         if(product.is_seasonal) {
           return(
-            <li key={product.id}>
+            <li className="productList__item" key={product.id}>
               {product.name}
             </li>
           )

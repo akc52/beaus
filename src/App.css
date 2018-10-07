@@ -24,3 +24,14 @@ a {
   color: var(--color2);
   border-bottom: 1px solid var(--color4);
 }
+
+.productList {
+  display: flex;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.productList__item {
+  border: 1px solid var(--color1);
+  list-style-type: none;
+}
