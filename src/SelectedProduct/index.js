@@ -8,7 +8,7 @@ const SelectedProduct = props => (
 );
 
 SelectedProduct.propTypes =  {
-  id: PropTypes.int
+  selectedId: PropTypes.number
 }
 
 export default SelectedProduct;

@@ -1150,7 +1150,7 @@ console.log("values:",parsedValues);
 
       // TO DO - this is not correct
       // should return filtered data, not formatted li
-
+/*
       let filteredProducts = dataset.result.map((product) => {
         if(product.is_seasonal && product.producer_name === "Beau's All Natural Brewing") {
           return(
@@ -1167,7 +1167,7 @@ console.log("values:",parsedValues);
 //let filteredProducts = dataset.filter( product => product.is_seasonal);
 
       this.setState({ products: filteredProducts})
-
+*/
   }
 
   selectProduct = id => {
@@ -1190,7 +1190,7 @@ console.log("values:",parsedValues);
           <SelectedProduct
             selectedId={this.state.selectedId} />
           <ProductList
-            products={this.state.products}
+            products={dataset.result}
             selectProduct={this.selectProduct} />
         </main>
       </div>
