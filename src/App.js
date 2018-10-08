@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import ProductList from './ProductList';
+import SelectedProduct from './SelectedProduct';
 
 
 /*
@@ -1088,7 +1089,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      products: []
+      products: [],
+      selectedId: null
     }
   }
 
@@ -1100,7 +1102,7 @@ class App extends Component {
     //fetch('https://lcboapi.com/products/?q=beau%27s+all+natural+brewing?access_key=' + ACCESS_KEY, headers)
     //fetch('https://lcboapi.com/products/?q=beau%27s+all+natural+brewing?access_key=' + ACCESS_KEY)
     //fetch('http://lcboapi.com/products/?q=beau%27s+all+natural+brewing')
-    //fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY + '/?q=beau%27s+all+natural+brewing')
+    fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY + '/?q=beau%27s+all+natural+brewing')
       .then(results => {
         console.log(results)
         return results.json();
@@ -1138,13 +1140,24 @@ class App extends Component {
       })
 */
 
+let arr2 = JSON.stringify(dataset.result)
+let parsedValues = JSON.parse(arr2);
+//let valuesFilters = parsedValues.map((product) => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing"))
+
+console.log("mapData:",arr2);
+console.log("values:",parsedValues);
+
 
       // TO DO - this is not correct
+      // should return filtered data, not formatted li
 
       let filteredProducts = dataset.result.map((product) => {
-        if(product.is_seasonal) {
+        if(product.is_seasonal && product.producer_name === "Beau's All Natural Brewing") {
           return(
-            <li className="productList__item" key={product.id}>
+            <li
+              className="productList__item"
+              key={product.id}
+              onClick={() => this.selectProduct(product.id)}>
               {product.name}
             </li>
           )
@@ -1157,18 +1170,29 @@ class App extends Component {
 
   }
 
+  selectProduct = id => {
+    console.log(id)
+    this.setState({
+      selectedId: id
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1>Beau's Seasonal Beer</h1>
+        </header>
+        <main>
           <p>
             Since 2006 Beau’s All Natural has been brewing interesting, tasty beers like our Lug Tread Lagered Ale using the best ingredients & local spring water. Our family takes pride in creating unique, wonderful and certified organic craft beer, conceived with honest consideration for the environment and our local communities, and delivered with a sense of friendly relationship. We are an award-winning, local, family-run, organic, and independent brewery.
           </p>
-          <div>
-            <ProductList products={this.state.products} />
-          </div>
-        </header>
+          <SelectedProduct
+            selectedId={this.state.selectedId} />
+          <ProductList
+            products={this.state.products}
+            selectProduct={this.selectProduct} />
+        </main>
       </div>
     );
   }

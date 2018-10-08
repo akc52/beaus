@@ -25,6 +25,13 @@ a {
   border-bottom: 1px solid var(--color4);
 }
 
+.productList__Container{
+  width: 80%;
+  margin: 0 auto;
+  overflow-x: scroll;
+  padding: 10px 0;
+}
+
 .productList {
   display: flex;
   padding-left: 0;
