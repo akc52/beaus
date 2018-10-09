@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import ProductList from './ProductList';
 import SelectedProduct from './SelectedProduct';
 
-
+//this access key is registered for the domain github.com
 /*
 const ACCESS_KEY = 'MDo0NTllYzdlYy1jNzc0LTExZTgtYTc1YS1jN2NjNTYwZWNhOTA6WGEzSDdhS2xqbW1wc05ERjE1MFBZMUg2Ykw5SUpnMEpDMEFl';
 const URL = 'http://lcboapi.com/products/?q=beau%27s+all+natural+brewing';
@@ -1090,92 +1089,88 @@ class App extends Component {
     super();
     this.state = {
       products: [],
-      selectedId: null
+      selectedDescription: null,
+      selectedId: null,
+      selectedImage: null,
+      selectedName: null
     }
   }
 
+  // parseData( response ) {
+  //   return response.data;
+  // }
+
   componentDidMount() {
+    // does not currently do anything
+    // I pass the entire dataset results to the component
+
     /*
     //fetch(URL, myInit)
-    //fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY)
+    fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY)
     //fetch('https://lcboapi.com/products/?q=beau%27s+all+natural+brewing')
     //fetch('https://lcboapi.com/products/?q=beau%27s+all+natural+brewing?access_key=' + ACCESS_KEY, headers)
     //fetch('https://lcboapi.com/products/?q=beau%27s+all+natural+brewing?access_key=' + ACCESS_KEY)
     //fetch('http://lcboapi.com/products/?q=beau%27s+all+natural+brewing')
-    fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY + '/?q=beau%27s+all+natural+brewing')
+    //fetch('https://lcboapi.com/products?access_key=' + ACCESS_KEY + '/?q=beau%27s+all+natural+brewing')
       .then(results => {
         console.log(results)
         return results.json();
       }).then( data => {
-
-        let products = data.result.map((product) => {
-          return(
-            <div key={product.id}>
-              {product.name}
-            </div>
-          )
+        data.result
+        .filter(product => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing")
+        .map((product) =>
+        this.setState({
+          products: [
+            {
+              id: product.id,
+              name: product.name,
+            },
+            ...this.state.products
+          ]
         })
+        )
 
-        this.setState({ products: products})
+        this.setState({ products: data.result})
 
         console.log("state", this.state.products)
         console.log(data)
       }).catch(function(error) {
         console.log(error)
       });
+
+      /*
+        let arr2 = JSON.stringify(dataset.result)
+        let parsedValues = JSON.parse(arr2);
+        console.log("values:",parsedValues);
       */
-/*
-      dataset.result.map((product) => {
-        if(product.is_seasonal){
-          this.setState({
-            products: [
-              {
-                id: product.id,
-                name: product.name,
-              },
-              ...this.state.products
-            ]
-          })
-        }
-      })
-*/
-
-let arr2 = JSON.stringify(dataset.result)
-let parsedValues = JSON.parse(arr2);
-//let valuesFilters = parsedValues.map((product) => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing"))
-
-console.log("mapData:",arr2);
-console.log("values:",parsedValues);
-
-
-      // TO DO - this is not correct
-      // should return filtered data, not formatted li
-/*
-      let filteredProducts = dataset.result.map((product) => {
-        if(product.is_seasonal && product.producer_name === "Beau's All Natural Brewing") {
-          return(
-            <li
-              className="productList__item"
-              key={product.id}
-              onClick={() => this.selectProduct(product.id)}>
-              {product.name}
-            </li>
-          )
-        }
-      })
-
-//let filteredProducts = dataset.filter( product => product.is_seasonal);
-
-      this.setState({ products: filteredProducts})
-*/
   }
 
-  selectProduct = id => {
-    console.log(id)
+  // TO DO refactor to access description within products array -- requires accurate products array
+  selectProduct = (id, description, image, name) => {
+    console.log(id, description, image, name)
     this.setState({
-      selectedId: id
+      selectedId: id,
+      selectedDescription: description,
+      selectedImage: image,
+      selectedName: name
     });
   }
+
+// not working
+  setDescription = id =>
+    this.setState({
+      products: this.state.products.map((product) => {
+        console.log(product.description)
+        if( id === product.id) {
+          console.log(product.description)
+          return {
+            ...product,
+            selectedDescription: product.description
+          }
+        }
+      })
+
+    });
 
   render() {
     return (
@@ -1188,7 +1183,10 @@ console.log("values:",parsedValues);
             Since 2006 Beau’s All Natural has been brewing interesting, tasty beers like our Lug Tread Lagered Ale using the best ingredients & local spring water. Our family takes pride in creating unique, wonderful and certified organic craft beer, conceived with honest consideration for the environment and our local communities, and delivered with a sense of friendly relationship. We are an award-winning, local, family-run, organic, and independent brewery.
           </p>
           <SelectedProduct
-            selectedId={this.state.selectedId} />
+            selectedDescription={this.state.selectedDescription}
+            selectedId={this.state.selectedId}
+            selectedImage={this.state.selectedImage}
+            selectedName={this.state.selectedName} />
           <ProductList
             products={dataset.result}
             selectProduct={this.selectProduct} />
