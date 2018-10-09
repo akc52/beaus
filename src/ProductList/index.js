@@ -17,7 +17,7 @@ const ProductList = props => (
           id={product.id}
           key={product.id}
           name={product.name}
-          handleSelectProduct={() => props.handleSelectProduct(product.id, product.tasting_note, product.image_url,  product.name)}
+          handleSelectProduct={() => props.handleSelectProduct(product.id)}
         />
       )}
     </ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AvailableStoresList from './AvailableStoresList';
 
 const SelectedProduct = props => (
   <div className="selectedProduct">
@@ -21,11 +22,13 @@ const SelectedProduct = props => (
     <p>
     {/* TO DO list stores that carry selected beer */}
     </p>
+    <AvailableStoresList availableStores={props.availableStores} />
   </div>
 );
 
 SelectedProduct.propTypes =  {
-  selectedProduct: PropTypes.object
+  selectedProduct: PropTypes.object,
+  availableStores: PropTypes.array
 }
 
 export default SelectedProduct;
