@@ -14,9 +14,10 @@ const ProductList = props => (
       .filter(product => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing")
       .map((product) =>
         <ProductItem
+          id={product.id}
           key={product.id}
           name={product.name}
-          selectProduct={() => props.selectProduct(product.id, product.tasting_note, product.image_url,  product.name)}
+          handleSelectProduct={() => props.handleSelectProduct(product.id, product.tasting_note, product.image_url,  product.name)}
         />
       )}
     </ul>
@@ -24,8 +25,8 @@ const ProductList = props => (
 );
 
 ProductList.propTypes =  {
-  products: PropTypes.array.isRequired,
-  selectProduct: PropTypes.func.isRequired
+  products: PropTypes.array,
+  selectProduct: PropTypes.func
 }
 
 export default ProductList;

@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 const SelectedProduct = props => (
   <div className="selectedProduct">
-    <h2>{props.selectedName}</h2>
-    <p>
+    <h2>{props.selectedProduct.name}</h2>
     <img
       className="selectedProduct__image"
-      src={props.selectedImage}
-      data-src={props.selectedImage}
-      data-src-retina={props.selectedImage}
+      src={props.selectedProduct.image_thumb_url}
+      data-src={props.selectedProduct.image_thumb_url}
+      data-src-retina={props.selectedProduct.image_thumb_url}
       alt="" />
+    <p>
+    {props.selectedProduct.tertiary_category}
+    </p>
+    <p>{props.selectedProduct.package}
     </p>
     <p>
-    {props.selectedId}
-    </p>
-    <p>
-    {props.selectedDescription}
+    {props.selectedProduct.tasting_note}
     </p>
     <p>
     {/* TO DO list stores that carry selected beer */}
@@ -25,10 +25,7 @@ const SelectedProduct = props => (
 );
 
 SelectedProduct.propTypes =  {
-  selectedDescription: PropTypes.string,
-  selectedId: PropTypes.number,
-  selectedImage: PropTypes.string,
-  selectedName: PropTypes.string
+  selectedProduct: PropTypes.object
 }
 
 export default SelectedProduct;
