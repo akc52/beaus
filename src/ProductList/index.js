@@ -11,7 +11,7 @@ const ProductList = props => (
       ALSO id/description/image should be set in App.js from products array
     */}
       {props.products
-      .filter(product => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing")
+      //.filter(product => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing")
       .map((product) =>
         <ProductItem
           id={product.id}

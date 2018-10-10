@@ -11,7 +11,7 @@
 
 body {
   font-family: var(--bodyFont);
-  background-color: var(--color3);
+  background-color: #FFF;
   padding: 1em;
 }
 
@@ -29,7 +29,7 @@ a {
 
 main {
   display: grid;
-  grid-template-columns: 14em auto;
+  grid-template-columns: 14em 1fr;
   grid-column-gap: 30px;
   justify-content: flex-start;
 }
@@ -40,9 +40,9 @@ main {
 .productList {
   display: flex;
   flex-direction: column;
-  padding-left: 0;
+  padding: 0 1em 0 0;
   margin-left: 0;
-  border-right: 1px solid var(--color2);
+  border-right: 1px solid var(--color3);
 }
 
 .productList__item {
@@ -58,6 +58,7 @@ main {
 .selectedProduct {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .selectedProduct__image {

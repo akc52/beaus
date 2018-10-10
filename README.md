@@ -1,13 +1,5 @@
 # Beaus Seasonal Beers React App
 
-I had some issues using the lcboAPI. There were 2 calls I attempted:
-- 'https://lcboapi.com/products/?q=beau%27s+all+natural+brewing'
-- 'https://lcboapi.com/stores?product_id='
-
-They both worked in Postman, but I had CORS errors within the app. The results from these 2 calls have been hard coded into App.js, with notes.
-
----
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
