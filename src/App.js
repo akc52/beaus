@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
+import fetchJsonp from 'fetch-jsonp';
 import './App.css';
 import ProductList from './ProductList';
 import SelectedProduct from './SelectedProduct';
-import fetchJsonp from 'fetch-jsonp'; //This was the life saver
 
 // const ACCESS_KEY = 'MDo0NTllYzdlYy1jNzc0LTExZTgtYTc1YS1jN2NjNTYwZWNhOTA6WGEzSDdhS2xqbW1wc05ERjE1MFBZMUg2Ykw5SUpnMEpDMEFl';
 const PRODUCTS_URL = 'http://lcboapi.com/products/?q=beau%27s+all+natural+brewing';
 const STORES_URL = 'http://lcboapi.com/stores?product_id=';
-
-// Available stores from 'Beau's Tom Green Summer Stout'
-// lcboapi.com/stores?product_id=519959
 
 class App extends Component {
   constructor(props) {
@@ -28,14 +25,13 @@ class App extends Component {
       .then(results => {
         return results.json();
       }).then( data => {
-        // console.log("fetched data.result", data.result);
         this.setState({
           products: data.result
             .filter(product => product.is_seasonal && product.producer_name === "Beau's All Natural Brewing")
         });
 
         this.handleSelectProduct(this.state.products[0].id);
-        
+
       }).catch(function(error) {
         console.log(error)
       });
@@ -47,7 +43,6 @@ class App extends Component {
     .then(results => {
       return results.json();
     }).then( data => {
-      // console.log("fetched stores data.result", data.result);
       this.setState({ availableStores: data.result})
     }).catch(function(error) {
       console.log(error)
@@ -75,6 +70,8 @@ class App extends Component {
         <main>
           <ProductList
             products={this.state.products}
+            selectedProduct={this.state.selectedProduct}
+            selectedProductId={this.state.selectedProduct.id}
             handleSelectProduct={this.handleSelectProduct} />
           <SelectedProduct
             selectedProduct={this.state.selectedProduct}
